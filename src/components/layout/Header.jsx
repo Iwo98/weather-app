@@ -14,10 +14,35 @@ const StyledLink = styled(Link)`
   color: white;
 `;
 
+const StyledNav = styled.nav`
+  display: flex;
+  align-items: center;
+  gap: 0 20px;
+`;
+
+const HomeWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: 0 30px;
+`;
+
+const CurrentLocation = styled.div`
+  font-size: 14px;
+`;
+
 function Header() {
   return (
     <Wrapper>
-      <StyledLink to='/'>Home</StyledLink>
+      <HomeWrapper>
+        <StyledLink to='/'>Home</StyledLink>
+        <CurrentLocation>
+          Current location: Gdańsk
+        </CurrentLocation>
+      </HomeWrapper>
+      <StyledNav>
+        <StyledLink to='/'>Temperature</StyledLink>
+        <StyledLink to='/pressure'>Pressure</StyledLink>
+      </StyledNav>
     </Wrapper>
   );
 }

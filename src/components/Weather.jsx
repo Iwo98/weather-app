@@ -1,17 +1,12 @@
 import styled from 'styled-components';
+import WeatherImage from "./WeatherImage";
+
 
 const Wrapper = styled.section`
   padding: 20px 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-`;
-
-const WeatherImage = styled.img`
-  height: 200px;
-  width: 200px;
-  object-fit: cover;
 `;
 
 const WeatherDescriptions = styled.div`
@@ -28,7 +23,6 @@ const WeatherDescription = styled.div`
 `;
 
 const WeatherFeature = styled.span`
-
 `;
 
 const WeatherResult = styled.span`
@@ -39,25 +33,21 @@ const WeatherResult = styled.span`
 function Weather({weather}) {
   return (
     <Wrapper>
-      <WeatherImage src="/sunny.png"/>
-      {weather ? (
-        <WeatherDescriptions>
-          <WeatherDescription>
-            <WeatherFeature>Temperature: </WeatherFeature>
-            <WeatherResult>{`${weather.temp} ℃`}</WeatherResult>
-          </WeatherDescription>
-          <WeatherDescription>
-            <WeatherFeature>Sensed temperature: </WeatherFeature>
-            <WeatherResult>{`${weather.feel_temp} ℃`}</WeatherResult>
-          </WeatherDescription>
-          <WeatherDescription>
-            <WeatherFeature>Description: </WeatherFeature>
-            <WeatherResult>{weather.description}</WeatherResult>
-          </WeatherDescription>
-        </WeatherDescriptions>
-      ) : (
-        <div>Loading</div>
-      )}
+      <WeatherImage weatherDescription={weather.description}/>
+      <WeatherDescriptions>
+        <WeatherDescription>
+          <WeatherFeature>Temperature: </WeatherFeature>
+          <WeatherResult>{`${weather.temp} ℃`}</WeatherResult>
+        </WeatherDescription>
+        <WeatherDescription>
+          <WeatherFeature>Sensed temperature: </WeatherFeature>
+          <WeatherResult>{`${weather.feel_temp} ℃`}</WeatherResult>
+        </WeatherDescription>
+        <WeatherDescription>
+          <WeatherFeature>Description: </WeatherFeature>
+          <WeatherResult>{weather.description}</WeatherResult>
+        </WeatherDescription>
+      </WeatherDescriptions>
     </Wrapper>
   );
 }

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Another() {
+function Pressure() {
     return (
       <div>
           <Link to='/'>Home</Link>
@@ -8,4 +8,4 @@ function Another() {
     );
   }
   
-  export default Another;
+  export default Pressure;

@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import styled from 'styled-components';
 import axios from "axios";
 import Weather from "../components/Weather";
+import Loader from "../components/Loader";
 
 
 const Wrapper = styled.div`
@@ -9,19 +10,30 @@ const Wrapper = styled.div`
   rgba(2, 0, 36, 1) 0%,
   rgba(50, 167, 186, 0.8911939775910365) 0%,
   rgba(50, 167, 186, 0.44861694677871145) 100%);
-  padding: 50px;
+  padding: 50px 30px 30px;
   border-radius: 30px;
   width: 100%;
 `;
 
-const City = styled.h1`
+const CityWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+`;
+
+const City = styled.button`
   font-size: 36px;
   font-weight: 600;
   text-align: center;
   color: white;
   margin: 0;
+  padding: 0;
+  background: 0;
+  border: 0;
+  cursor: pointer;
 `;
 
+const Cities = ['Paris', 'London', 'Reykjavik'];
 
 function Home() {
   const [weather, setWeather] = useState();
@@ -29,8 +41,7 @@ function Home() {
 
   const getWeather = async (city) => {
     try {
-      const lonlat = city === 'Warszawa' ? 'lat=52.229676&lon=21.012229' : 'lat=54.348290&lon=18.6540231';
-      const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/weather?${lonlat}&units=metric&appid=f6ba2dcb23663fa91c67a9643d6ca9ce`);
+      const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&&units=metric&appid=f6ba2dcb23663fa91c67a9643d6ca9ce`);
 
       setWeather({
         temp: data.main.temp,
@@ -46,17 +57,23 @@ function Home() {
     void getWeather(city)
   }, [city])
 
-  console.log(weather);
+  if (!weather) {
+    return <Loader/>;
+  }
 
   return (
     <Wrapper>
-      <City>{city}</City>
-      <button
-        onClick={() => setCity((prevState) => prevState === 'Warszawa' ? 'Gdańsk' : 'Warszawa')}
-        type='button'
-      >
-        Change city
-      </button>
+      <CityWrapper>
+        {Cities.map((city) => (
+          <City
+            key={city}
+            onClick={() => setCity(city)}
+            type='button'
+          >
+            {city}
+          </City>
+        ))}
+      </CityWrapper>
       <Weather
         weather={weather}
       />

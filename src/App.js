@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Another from "./pages/another";
+import Pressure from "./pages/preassure";
 import Home from "./pages/home";
 import Layout from "./components/layout/Layout";
 
@@ -10,7 +10,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="another" element={<Another />} />
+          <Route path="/pressure" element={<Pressure />} />
         </Routes>
       </Layout>
     </div>
