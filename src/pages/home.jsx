@@ -30,7 +30,7 @@ function Home() {
   const getWeather = async (city) => {
     try {
       const lonlat = city === 'Warszawa' ? 'lat=52.229676&lon=21.012229' : 'lat=54.348290&lon=18.6540231';
-      const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/weather?${lonlat}&units=metric&appid=f6ba2dcb23663fa91c67a9643d6ca9ce`);
+      const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/weather?${lonlat}&units=metric&appid=`);
 
       setWeather({
         temp: data.main.temp,
