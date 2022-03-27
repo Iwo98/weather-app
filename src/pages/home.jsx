@@ -4,7 +4,6 @@ import axios from "axios";
 import Weather from "../components/Weather";
 import Loader from "../components/Loader";
 
-
 const Wrapper = styled.div`
   background: linear-gradient(0deg,
   rgba(2, 0, 36, 1) 0%,
@@ -17,8 +16,8 @@ const Wrapper = styled.div`
 
 const CityWrapper = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 `;
 
 const City = styled.button`
@@ -39,9 +38,11 @@ function Home() {
   const [weather, setWeather] = useState();
   const [city, setCity] = useState('Gdańsk');
 
+  console.log()
+
   const getWeather = async (city) => {
     try {
-      const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&&units=metric&appid=f6ba2dcb23663fa91c67a9643d6ca9ce`);
+      const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&&units=metric&appid=${process.env.REACT_APP_OPENWEATHER_KEY}`);
 
       setWeather({
         temp: data.main.temp,
