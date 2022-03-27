@@ -1,12 +1,5 @@
-import styled from 'styled-components';
 import { useEffect, useState } from "react";
-
-
-const Image = styled.img`
-  height: 200px;
-  width: 200px;
-  object-fit: cover;
-`;
+import styles from './WeatherImage.module.scss'
 
 const descriptions = [
   {description: 'clear sky', fileName: 'sunny'},
@@ -34,7 +27,7 @@ const WeatherImage = ({ weatherDescription }) => {
   }, [weatherDescription])
 
   return (
-    <Image src={`/${image}.png`} />
+    <img className={styles.root} src={`/${image}.png`} alt={image} />
   );
 };
 

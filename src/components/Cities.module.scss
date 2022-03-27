@@ -1,0 +1,23 @@
+.root {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.city {
+    font-size: 36px;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    margin: 0;
+    padding: 0;
+    background: 0;
+    border: 0;
+    cursor: pointer;
+    transition: color 250ms ease-in-out;
+
+    &.active {
+        color: #696969;
+        font-weight: 700;
+    }
+}
