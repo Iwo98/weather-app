@@ -4,11 +4,11 @@ import Weather from "../components/weatherContentPage/Weather";
 import Loader from "../components/weatherContentPage/Loader";
 import Cities from "../components/Cities";
 import styles from './home.module.scss'
-
+import { useSelector} from "react-redux";
 
 function Home() {
+  const city = useSelector(state => state.cityReducer);
   const [weather, setWeather] = useState();
-  const [city, setCity] = useState('Paris');
 
   const getWeather = async (city) => {
     try {
@@ -34,10 +34,7 @@ function Home() {
 
   return (
     <div className={styles.root}>
-      <Cities
-        setCity={setCity}
-        activeCity={city}
-      />
+      <Cities />
       <Weather
         weather={weather}
       />
