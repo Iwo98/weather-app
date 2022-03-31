@@ -9,6 +9,7 @@ const descriptions = [
   {description: 'broken clouds', fileName: 'cloudy'},
   {description: 'shower rain', fileName: 'rainy'},
   {description: 'rain', fileName: 'rainy'},
+  {description: 'light rain', fileName: 'rainy'},
   {description: 'thunderstorm', fileName: 'storm'},
   {description: 'snow', fileName: 'snowy'},
 ]
@@ -27,7 +28,7 @@ const WeatherImage = ({ weatherDescription }) => {
   }, [weatherDescription])
 
   return (
-    <img className={styles.root} src={`/${image}.png`} alt={image} />
+    <img className={styles.root} src={`${process.env.PUBLIC_URL}/${image}.png`} alt={image} />
   );
 };
 
