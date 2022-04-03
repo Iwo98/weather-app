@@ -1,8 +1,11 @@
+import React from 'react';
 import { Routes, Route } from "react-router-dom";
-import Pressure from "./pages/preassure";
 import Home from "./pages/home";
 import Layout from "./components/layout/Layout";
+import Loader from "./components/weatherContentPage/Loader";
 
+
+const Pressure = React.lazy(() => import("./pages/pressure"));
 
 function App() {
   return (
@@ -10,7 +13,14 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/pressure" element={<Pressure />} />
+          <Route
+            path="pressure"
+            element={
+              <React.Suspense fallback={<Loader />}>
+                <Pressure />
+              </React.Suspense>
+            }
+          />
         </Routes>
       </Layout>
     </div>

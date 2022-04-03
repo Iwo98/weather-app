@@ -7,6 +7,7 @@ const descriptions = [
   {description: 'scattered clouds', fileName: 'cloudy'},
   {description: 'overcast clouds', fileName: 'cloudy'},
   {description: 'broken clouds', fileName: 'cloudy'},
+  {description: 'light intensity drizzle', fileName: 'rainy'},
   {description: 'shower rain', fileName: 'rainy'},
   {description: 'rain', fileName: 'rainy'},
   {description: 'light rain', fileName: 'rainy'},
