@@ -1,16 +1,13 @@
 import styles from './Cities.module.scss'
 import classnamesBind from 'classnames/bind';
-import { useDispatch, useSelector } from "react-redux";
-import { chooseCity } from "../redux/actions";
+import { connect } from "react-redux";
+import { chooseCity } from "../redux";
 
 
 const classnames = classnamesBind.bind(styles);
 const cityNames = ['Paris', 'London', 'Reykjavik'];
 
-const Cities = () => {
-  const dispatch = useDispatch();
-  const currentCity = useSelector(state => state.cityReducer)
-
+const Cities = ({ currentCity, chooseCity }) => {
   return (
     <div className={styles.root}>
       {cityNames.map((city) => (
@@ -22,7 +19,7 @@ const Cities = () => {
             }
           )}
           key={city}
-          onClick={() => dispatch(chooseCity(city))}
+          onClick={() => chooseCity(city)}
           type='button'
         >
           {city}
@@ -32,4 +29,19 @@ const Cities = () => {
   );
 }
 
-export default Cities;
+const mapStateToProps = state => {
+  return {
+    currentCity: state.city.cityName
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    chooseCity: city => dispatch(chooseCity(city))  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)
+(Cities);
