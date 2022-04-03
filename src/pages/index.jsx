@@ -4,16 +4,16 @@ import Weather from "../components/weatherContentPage/Weather";
 import Loader from "../components/weatherContentPage/Loader";
 import Cities from "../components/Cities";
 import styles from './home.module.scss'
-import { useSelector} from "react-redux";
+import {connect} from "react-redux";
+import Layout from "../components/layout/Layout";
 
-function Home() {
-  const city = useSelector(state => state.cityReducer);
+
+const Index = ({city}) => {
   const [weather, setWeather] = useState();
 
   const getWeather = async (city) => {
     try {
       const {data} = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&&units=metric&appid=${process.env.REACT_APP_OPENWEATHER_KEY}`);
-
       setWeather({
         temp: data.main.temp,
         feel_temp: data.main.feels_like,
@@ -29,17 +29,32 @@ function Home() {
   }, [city])
 
   if (!weather) {
-    return <Loader/>;
+    return (
+      <Layout>
+        <Loader />
+      </Layout>
+    )
   }
 
   return (
-    <div className={styles.root}>
-      <Cities />
-      <Weather
-        weather={weather}
-      />
-    </div>
+    <Layout>
+      <div className={styles.root}>
+        <Cities/>
+        <Weather
+          weather={weather}
+        />
+      </div>
+    </Layout>
   );
 }
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    city: state.city.cityName
+  }
+}
+
+export default connect(
+  mapStateToProps,
+)
+(Index);

@@ -1,18 +1,25 @@
+import React from 'react';
 import { Routes, Route } from "react-router-dom";
-import Pressure from "./pages/preassure";
-import Home from "./pages/home";
-import Layout from "./components/layout/Layout";
+import Home from "./pages/index";
+import Loader from "./components/weatherContentPage/Loader";
 
+
+const Pressure = React.lazy(() => import("./pages/User"));
 
 function App() {
   return (
     <div>
-      <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/pressure" element={<Pressure />} />
+          <Route
+            path="user"
+            element={
+              <React.Suspense fallback={<Loader />}>
+                <Pressure />
+              </React.Suspense>
+            }
+          />
         </Routes>
-      </Layout>
     </div>
   );
 }

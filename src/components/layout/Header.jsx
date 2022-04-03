@@ -1,25 +1,73 @@
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import styles from './Header.module.scss';
-import {useSelector} from "react-redux";
+import {connect} from "react-redux";
+import CurrentLocationContainer from "../currentLocation/CurrentLocationContainer";
+import { logInUser, logOutUser } from "../../redux/user/userActions";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
-function Header() {
-  const city = useSelector(state => state.cityReducer)
+const Header = ({ user, logIn, logOut }) => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const handleLogIn = () => {
+    logIn();
+    navigate('/user')
+  }
+
+  const handleLogOut = () => {
+    logOut();
+
+    if (pathname === '/user') {
+      navigate('/');
+    }
+  }
 
   return (
     <header className={styles.root}>
       <div className={styles.homeWrapper}>
         <Link className={styles.link} to='/'>Home</Link>
-        <div className={styles.currentLocation}>
-          {`Current location: ${city}`}
-        </div>
+        <CurrentLocationContainer/>
       </div>
       <nav className={styles.nav}>
-        <Link className={styles.link} to='/'>Temperature</Link>
-        <Link className={styles.link}  to='/pressure'>Pressure</Link>
+        {user && user?.isLogged ? (
+          <>
+            <Link className={styles.link} to='/user'>{`${user.name} ${user.surname}`}</Link>
+            <button
+              onClick={() => handleLogOut()}
+              className={styles.logInOutButton}
+            >
+              Log out
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={() => handleLogIn()}
+            className={styles.logInOutButton}
+          >
+            Log in
+          </button>
+        )}
       </nav>
     </header>
   );
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    city: state.city,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logIn: () => dispatch(logInUser()),
+    logOut: () => dispatch(logOutUser()),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);

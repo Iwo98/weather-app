@@ -17,7 +17,7 @@ function Weather({weather}) {
         </div>
         <div className={styles.description}>
           <span>Description: </span>
-          <span>{weather.description}</span>
+          <span className={styles.result}>{weather.description}</span>
         </div>
       </div>
     </div>
